@@ -4,7 +4,6 @@
 
 # User-specific stuff
 .idea
-!.idea/copyright
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -21,9 +20,6 @@
 
 # CMake
 cmake-build-*/
-
-# Mongo Explorer plugin
-.idea/**/mongoSettings.xml
 
 # File-based project format
 *.iws

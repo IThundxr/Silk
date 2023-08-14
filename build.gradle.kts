@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.*
 
 plugins {
     kotlin("jvm") version "1.8.0"
@@ -7,11 +6,10 @@ plugins {
     java
     `java-gradle-plugin`
     `maven-publish`
-    alias(libs.plugins.gradle.pluginPublish)
-    alias(libs.plugins.licenser)
+    id("com.gradle.plugin-publish") version "1.2.0"
 }
 
-group = "io.github.ladysnake"
+group = "dev.ithundxr"
 version = project.properties["version"]!!
 
 val functionalTest: SourceSet by sourceSets.creating
@@ -29,34 +27,23 @@ repositories {
     }
 }
 
+val cursegradle_version: String by project
+val loom_version: String by project
+val jgit_version: String by project
+val minotaur_version: String by project
+
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(gradleApi())
-    implementation(libs.artifactory)
-    implementation(libs.cursegradle)
-    implementation(libs.githubRelease)
-    implementation(libs.licenser)
-    implementation(libs.loom)
-    implementation(libs.jgit)
-    implementation(libs.minotaur)
+    implementation("gradle.plugin.com.matthewprenger:CurseGradle:$cursegradle_version")
+    implementation("org.quiltmc:loom:$loom_version")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:$jgit_version")
+    implementation("com.modrinth.minotaur:Minotaur:$minotaur_version")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     "functionalTestImplementation"(platform("org.spockframework:spock-bom:2.0-groovy-3.0"))
     "functionalTestImplementation"("org.spockframework:spock-core")
-}
-
-license {
-    setHeader(file("src/main/resources/license_headers/LGPL.txt"))
-    newLine.set(false)
-    properties {
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val firstYear = 2022
-        val year = if (currentYear == firstYear) currentYear else "$firstYear-$currentYear"
-        ext["year"] = year
-        ext["projectDisplayName"] = project.properties["display_name"]
-        ext["projectOwners"] = project.properties["owners"]
-        ext["gplVersion"] = "3"
-    }
 }
 
 java {
@@ -85,15 +72,15 @@ tasks.check {
 }
 
 gradlePlugin {
-    website.set("https://ladysnake.org/wiki/chenille")
-    vcsUrl.set("https://github.com/Ladysnake/Chenille")
+    website.set("https://ithundxr.dev")
+    vcsUrl.set("https://github.com/IThundxr/silk")
     testSourceSets(functionalTest)
     plugins {
-        create("chenille") {
-            id = "io.github.ladysnake.chenille"
-            displayName = "Chenille"
-            description = "Helper plugin for Minecraft mods using the Fabric modloader"
-            implementationClass = "io.github.ladysnake.chenille.ChenilleGradlePlugin"
+        create("silk") {
+            id = "dev.ithundxr.silk"
+            displayName = "Silk"
+            description = "Helper plugin for Minecraft mods"
+            implementationClass = "dev.ithundxr.silk.SilkGradlePlugin"
             tags.set(listOf("fabricmc", "minecraft", "loom", "fabric-loom", "quilt-loom"))
         }
     }
