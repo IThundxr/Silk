@@ -17,11 +17,16 @@ repositories {
     gradlePluginPortal()
 }
 
+val cursegradle_version: String by project
+val jgit_version: String by project
+val minotaur_version: String by project
+
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(gradleApi())
-    implementation("me.modmuss50:mod-publish-plugin:${project.properties["mod-publish_version"]}")
-    implementation("org.eclipse.jgit:org.eclipse.jgit:${project.properties["jgit_version"]}")
+    implementation("gradle.plugin.com.matthewprenger:CurseGradle:$cursegradle_version")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:$jgit_version")
+    implementation("com.modrinth.minotaur:Minotaur:$minotaur_version")
 }
 
 java {

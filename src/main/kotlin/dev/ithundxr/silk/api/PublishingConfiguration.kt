@@ -15,4 +15,16 @@ interface PublishingConfiguration {
      * @param snapshot if true, will publish to the IThundxr `snapshots` repository instead of the default `releases`
      */
     fun withIThundxrMaven(snapshot: Boolean = false)
+
+    /**
+     * Publishes the [mainArtifact] through a curseforge release.
+     */
+    @Deprecated("Deprecated")
+    fun withCurseforgeRelease()
+
+    /**
+     * Publishes the [mainArtifact] through a modrinth release.
+     */
+    @Deprecated("Deprecated")
+    fun withModrinthRelease()
 }

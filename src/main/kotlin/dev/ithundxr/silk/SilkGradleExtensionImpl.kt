@@ -3,7 +3,9 @@ package dev.ithundxr.silk
 import dev.ithundxr.silk.api.PublishingConfiguration
 import dev.ithundxr.silk.api.SilkGradleExtension
 import dev.ithundxr.silk.api.SilkRepositoryHandler
+import dev.ithundxr.silk.helpers.CurseGradleHelper
 import dev.ithundxr.silk.helpers.MavenHelper
+import dev.ithundxr.silk.helpers.ModrinthHelper
 import org.gradle.api.Action
 import org.gradle.api.Task
 import org.gradle.api.UnknownTaskException
@@ -49,12 +51,24 @@ open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradl
 
     override fun configurePublishing(action: Action<PublishingConfiguration>) {
         val cfg = object: PublishingConfiguration {
+            var curseforge = false
+            var modrinth = false
             var ithundxrMaven: MavenHelper.IThundxrMaven? = null
 
             override var mainArtifact: Any = project.tasks.named("remapJar")
 
             override fun withIThundxrMaven(snapshot: Boolean) {
                 ithundxrMaven = if (snapshot) MavenHelper.IThundxrMaven.SNAPSHOTS else MavenHelper.IThundxrMaven.RELEASES
+            }
+
+            @Deprecated("Deprecated")
+            override fun withCurseforgeRelease() {
+                curseforge = true
+            }
+
+            @Deprecated("Deprecated")
+            override fun withModrinthRelease() {
+                modrinth = true
             }
         }
 
@@ -67,7 +81,7 @@ open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradl
 
         val release: TaskProvider<Task> = project.tasks.register("release") {
             it.group = "publishing"
-            it.description = "Releases a new version to Maven, Curseforge and Modrinth"
+            it.description = "Releases a new version to Maven, Github, Curseforge and Modrinth"
             it.dependsOn(checkGitStatus)
         }
 
@@ -85,6 +99,16 @@ open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradl
 
         if (cfg.ithundxrMaven != null) {
             configureReleaseSubtask("publish")
+        }
+
+        if (cfg.curseforge) {
+            CurseGradleHelper.configureDefaults(project, cfg.mainArtifact)
+            configureReleaseSubtask("curseforge")
+        }
+
+        if (cfg.modrinth) {
+            ModrinthHelper.configureDefaults(project, cfg.mainArtifact)
+            configureReleaseSubtask("modrinth")
         }
     }
 }
