@@ -8,10 +8,6 @@ import org.gradle.api.artifacts.ConfigurationContainer
 @Suppress("unused") // Plugin entrypoint duh
 class SilkGradlePlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        if (!target.pluginManager.hasPlugin("fabric-loom")) {
-            target.pluginManager.apply("org.quiltmc.loom")
-        }
-
         val project = SilkProject(target)
 
         project.extensions.create(SilkGradleExtension::class.java, "silk", SilkGradleExtensionImpl::class.java, project)

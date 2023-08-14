@@ -17,6 +17,16 @@ import java.io.File
 import java.net.URL
 
 open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradleExtension {
+    override var loom: String by defaulted { "null" } withListener { value ->
+        when (value) {
+            "fabric" -> project.pluginManager.apply("org.quiltmc.loom")
+            "quilt" -> project.pluginManager.apply("org.quiltmc.loom")
+            "architectury" -> project.pluginManager.apply("dev.architectury.loom")
+            "null" -> println("No loom selected")
+            else -> throw IllegalArgumentException("Unsupported loom value: $value")
+        }
+    }
+
     override var changelogFile: File by defaulted { project.file("changelog.md") }
 
     override var javaVersion: Int by defaulted { 17 } withListener { value ->

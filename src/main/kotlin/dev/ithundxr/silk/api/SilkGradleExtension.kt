@@ -5,6 +5,7 @@ import java.io.File
 import java.net.URL
 
 interface SilkGradleExtension {
+    var loom: String
     val repositories: SilkRepositoryHandler
     fun repositories(action: Action<SilkRepositoryHandler>)
     fun repositories(action: SilkRepositoryHandler.() -> Unit)
