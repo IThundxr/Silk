@@ -6,7 +6,6 @@ import dev.ithundxr.silk.api.SilkRepositoryHandler
 import dev.ithundxr.silk.helpers.CurseGradleHelper
 import dev.ithundxr.silk.helpers.MavenHelper
 import dev.ithundxr.silk.helpers.ModrinthHelper
-import net.fabricmc.loom.task.RemapJarTask
 import org.gradle.api.Action
 import org.gradle.api.Task
 import org.gradle.api.UnknownTaskException
@@ -17,16 +16,6 @@ import java.io.File
 import java.net.URL
 
 open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradleExtension {
-    override var loom: String by defaulted { "null" } withListener { value ->
-        when (value) {
-            "fabric" -> project.pluginManager.apply("org.quiltmc.loom")
-            "quilt" -> project.pluginManager.apply("org.quiltmc.loom")
-            "architectury" -> project.pluginManager.apply("dev.architectury.loom")
-            "null" -> println("No loom selected")
-            else -> throw IllegalArgumentException("Unsupported loom value: $value")
-        }
-    }
-
     override var changelogFile: File by defaulted { project.file("changelog.md") }
 
     override var javaVersion: Int by defaulted { 17 } withListener { value ->
@@ -66,7 +55,7 @@ open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradl
             var modrinth = false
             var ithundxrMaven: MavenHelper.IThundxrMaven? = null
 
-            override var mainArtifact: Any = project.tasks.named("remapJar", RemapJarTask::class.java).flatMap { it.archiveFile }
+            override var mainArtifact: Any = project.tasks.named("remapJar")
 
             override fun withIThundxrMaven(snapshot: Boolean) {
                 ithundxrMaven = if (snapshot) MavenHelper.IThundxrMaven.SNAPSHOTS else MavenHelper.IThundxrMaven.RELEASES
