@@ -7,7 +7,6 @@ import com.matthewprenger.cursegradle.CurseRelation
 import groovy.lang.Closure
 import dev.ithundxr.silk.SilkProject
 
-@Deprecated("Deprecated")
 internal object CurseGradleHelper {
     fun configureDefaults(project: SilkProject, mainArtifact: Any) {
         project.pluginManager.apply("com.matthewprenger.cursegradle")

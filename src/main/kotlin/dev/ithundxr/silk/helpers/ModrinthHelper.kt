@@ -3,7 +3,6 @@ package dev.ithundxr.silk.helpers
 import com.modrinth.minotaur.ModrinthExtension
 import dev.ithundxr.silk.SilkProject
 
-@Deprecated("Deprecated")
 internal object ModrinthHelper {
     fun configureDefaults(project: SilkProject, mainArtifact: Any) {
         project.pluginManager.apply("com.modrinth.minotaur")

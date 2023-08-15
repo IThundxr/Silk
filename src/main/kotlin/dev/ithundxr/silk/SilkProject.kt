@@ -6,14 +6,14 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException
 import org.gradle.api.Project
 
 class SilkProject(private val project: Project): Project by project {
-    val git: JGitWrapper? by lazy {
+   val git: JGitWrapper? by lazy {
         try { JGitWrapper(Git.open(rootDir)) } catch (e: RepositoryNotFoundException) { null }
-    }
-    val isFabricMod: Boolean
+   }
+   val isFabricMod: Boolean
         get() = pluginManager.hasPlugin("fabric-loom")
 
-    val changelog = ChangelogText(this)
+   val changelog = ChangelogText(this)
 
-    val extension: SilkGradleExtension
+   val extension: SilkGradleExtension
         get() = project.extensions.getByType(SilkGradleExtension::class.java)
 }

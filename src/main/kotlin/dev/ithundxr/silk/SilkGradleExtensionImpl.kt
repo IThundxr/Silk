@@ -16,6 +16,8 @@ import java.io.File
 import java.net.URL
 
 open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradleExtension {
+    override var loader: String? by defaulted { null }
+
     override var changelogFile: File by defaulted { project.file("changelog.md") }
 
     override var javaVersion: Int by defaulted { 17 } withListener { value ->
@@ -61,12 +63,10 @@ open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradl
                 ithundxrMaven = if (snapshot) MavenHelper.IThundxrMaven.SNAPSHOTS else MavenHelper.IThundxrMaven.RELEASES
             }
 
-            @Deprecated("Deprecated")
             override fun withCurseforgeRelease() {
                 curseforge = true
             }
 
-            @Deprecated("Deprecated")
             override fun withModrinthRelease() {
                 modrinth = true
             }
@@ -81,7 +81,7 @@ open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradl
 
         val release: TaskProvider<Task> = project.tasks.register("release") {
             it.group = "publishing"
-            it.description = "Releases a new version to Maven, Github, Curseforge and Modrinth"
+            it.description = "Releases a new version to Maven, Curseforge and Modrinth"
             it.dependsOn(checkGitStatus)
         }
 

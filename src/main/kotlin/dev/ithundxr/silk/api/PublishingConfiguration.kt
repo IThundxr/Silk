@@ -19,12 +19,10 @@ interface PublishingConfiguration {
     /**
      * Publishes the [mainArtifact] through a curseforge release.
      */
-    @Deprecated("Deprecated")
     fun withCurseforgeRelease()
 
     /**
      * Publishes the [mainArtifact] through a modrinth release.
      */
-    @Deprecated("Deprecated")
     fun withModrinthRelease()
 }
