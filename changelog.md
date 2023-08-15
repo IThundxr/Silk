@@ -3,6 +3,7 @@ Version 0.11.5
 ------------------------------------------------------
 **Additions**
 - loader field
+- loom stuff again
 
 **Removals**
 - loom stuff
