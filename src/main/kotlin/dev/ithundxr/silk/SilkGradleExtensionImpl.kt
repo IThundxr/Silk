@@ -18,6 +18,28 @@ import java.net.URL
 open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradleExtension {
     override var loader: String? by defaulted { null }
 
+    override var loom: String by defaulted { "null" } withListener { value ->
+        when (value) {
+            "fabric" -> {
+                project.dependencies.add("implementation",
+                    "fabric-loom:1.2-SNAPSHOT")
+                project.pluginManager.apply("org.quiltmc.loom")
+            }
+            "quilt" -> {
+                project.dependencies.add("implementation",
+                    "org.quiltmc.loom:loom-plugin:1.+")
+                project.pluginManager.apply("org.quiltmc.loom")
+            }
+            "architectury" -> {
+                project.dependencies.add("implementation",
+                    "dev.architectury.loom:loom-plugin:1.1.+")
+                project.pluginManager.apply("dev.architectury.loom")
+            }
+            "null" -> println("No loom selected")
+            else -> throw IllegalArgumentException("Unsupported loom value: $value")
+        }
+    }
+
     override var changelogFile: File by defaulted { project.file("changelog.md") }
 
     override var javaVersion: Int by defaulted { 17 } withListener { value ->

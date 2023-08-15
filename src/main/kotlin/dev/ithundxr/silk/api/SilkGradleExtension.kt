@@ -10,6 +10,7 @@ interface SilkGradleExtension {
     fun repositories(action: SilkRepositoryHandler.() -> Unit)
     fun configurePublishing(action: Action<PublishingConfiguration>)
     var loader: String?
+    var loom: String
     var changelogFile: File
     var javaVersion: Int
     var modVersion: String
