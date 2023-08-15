@@ -4,6 +4,7 @@ Version 0.11.5
 **Removals**
 - loom stuff
 - tests
+- loader field
 
 ------------------------------------------------------
 Version 0.11.4
