@@ -10,7 +10,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.useLines
 import kotlin.io.path.writeText
 
-class ChangelogText(project: SilkProject): Callable<CharSequence> {
+class ChangelogText(project: SilkProject) {
     companion object {
         private const val SEPARATOR = "---"
         private val logger = LoggerFactory.getLogger(ChangelogText::class.java)
@@ -65,18 +65,5 @@ class ChangelogText(project: SilkProject): Callable<CharSequence> {
                 !line.startsWith(SEPARATOR)
             }.joinToString("\n|")
         }
-
-        """
-        |$changelog
-        |
-        |
-        | see full changelog [here](${project.extension.changelogUrl ?: return@lazy changelog} "Changelog")
-        """.trimMargin()
     }
-
-    override fun toString(): String {
-        return text
-    }
-
-    override fun call(): CharSequence = this.text
 }

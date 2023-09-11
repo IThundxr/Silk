@@ -24,7 +24,6 @@ class JGitWrapper(private val jgit: Git) {
         }
 
     fun fetch(): FetchResult = jgit.fetch().call()
-    fun listTags(): List<Ref> = jgit.tagList().call()
 }
 
 val Ref.shortName: String get() = Repository.shortenRefName(name)

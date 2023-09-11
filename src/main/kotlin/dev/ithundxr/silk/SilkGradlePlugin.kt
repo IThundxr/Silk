@@ -12,7 +12,7 @@ class SilkGradlePlugin : Plugin<Project> {
 
         project.extensions.create(SilkGradleExtension::class.java, "silk", SilkGradleExtensionImpl::class.java, project)
 
-        setupConfigurations(project.configurations)
+        //setupConfigurations(project.configurations)
     }
 
     private fun setupConfigurations(configurations: ConfigurationContainer) {

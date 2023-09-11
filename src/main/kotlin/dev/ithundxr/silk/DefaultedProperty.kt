@@ -20,13 +20,4 @@ class DefaultedProperty<T>(val initializer: () -> T) {
         this.value = value
         this.listener(value)
     }
-
-    infix fun withListener(listener: (T) -> Unit): DefaultedProperty<T> {
-        val oldListener = this.listener
-        this.listener = {
-            oldListener(it)
-            listener(it)
-        }
-        return this
-    }
 }
