@@ -8,17 +8,10 @@ import org.gradle.api.Action
 import org.gradle.api.Task
 import org.gradle.api.UnknownTaskException
 import org.gradle.api.tasks.TaskProvider
-import org.gradle.configurationcache.extensions.capitalized
 import java.io.File
 
 open class SilkGradleExtensionImpl(private val project: SilkProject) : SilkGradleExtension {
     override var changelogFile: File by defaulted { project.file("changelog.md") }
-
-    override var modVersion: String by defaulted { project.version.toString() }
-
-    override var displayName: String by defaulted {
-        project.name.split("-").joinToString(" ") { it.capitalized() }
-    }
 
     override val repositories: SilkRepositoryHandler
         get() = SilkRepositoryHandlerImpl(this.project.repositories)

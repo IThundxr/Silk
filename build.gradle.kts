@@ -49,7 +49,6 @@ gradlePlugin {
             displayName = "Silk"
             description = "Helper plugin for Minecraft mods"
             implementationClass = "dev.ithundxr.silk.SilkGradlePlugin"
-            tags.set(listOf("fabricmc", "minecraft", "loom", "fabric-loom", "quilt-loom"))
         }
     }
 }

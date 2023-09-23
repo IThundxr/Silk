@@ -101,4 +101,67 @@ class SilkRepositoryHandlerImpl(private val repositories: RepositoryHandler): Si
             }
         }
     }
+
+    override fun ithundxr() {
+        repositories.maven { repo ->
+            repo.setUrl("https://maven.ithundxr.dev/releases")
+        }
+    }
+
+    override fun devos() {
+        repositories.maven { repo ->
+            repo.setUrl("https://mvn.devos.one/snapshots")
+        }
+    }
+
+    override fun tterrag() {
+        repositories.maven { repo ->
+            repo.setUrl("https://maven.tterrag.com/")
+        }
+    }
+
+    override fun createForge() {
+        repositories.maven { repo ->
+            repo.setUrl("https://maven.tterrag.com/")
+            repo.content {
+                it.includeGroup("com.simibubi.create")
+            }
+        }
+    }
+
+    override fun createFabric() {
+        repositories.maven { repo ->
+            repo.setUrl("https://mvn.devos.one/snapshots")
+            repo.content {
+                it.includeGroup("com.simibubi.create")
+            }
+        }
+    }
+
+    override fun registrateForge() {
+        repositories.maven { repo ->
+            repo.setUrl("https://maven.tterrag.com/")
+            repo.content {
+                it.includeGroup("com.tterrag.registrate")
+            }
+        }
+    }
+
+    override fun registrateFabric() {
+        repositories.maven { repo ->
+            repo.setUrl("https://mvn.devos.one/snapshots")
+            repo.content {
+                it.includeGroup("com.tterrag.registrate")
+            }
+        }
+    }
+
+    override fun flywheel() {
+        repositories.maven { repo ->
+            repo.setUrl("https://maven.tterrag.com/")
+            repo.content {
+                it.includeGroup("com.jozufozu.flywheel")
+            }
+        }
+    }
 }

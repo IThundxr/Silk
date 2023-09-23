@@ -11,4 +11,13 @@ interface SilkRepositoryHandler {
     fun modrinth()
     fun shedaniel()
     fun terraformers()
+    fun ithundxr()
+    fun devos()
+    fun tterrag()
+    // Mod only mavens
+    fun createForge()
+    fun createFabric()
+    fun registrateForge()
+    fun registrateFabric()
+    fun flywheel()
 }
