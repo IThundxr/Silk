@@ -10,7 +10,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.useLines
 import kotlin.io.path.writeText
 
-class ChangelogText(project: SilkProject) {
+class ChangelogText(project: SilkProject): Callable<CharSequence> {
     companion object {
         private const val SEPARATOR = "---"
         private val logger = LoggerFactory.getLogger(ChangelogText::class.java)
@@ -53,17 +53,27 @@ class ChangelogText(project: SilkProject) {
                 val iterator = lines.iterator()
                 if (!iterator.hasNext() || !iterator.next()
                         .startsWith(SEPARATOR)
-                ) throw IllegalStateException("Malformed changelog: expected separator \"$SEPARATOR\" on line 1")
+                ) throw IllegalStateException("Malformed changelog: expected separator \"${SEPARATOR}\" on line 1")
                 if (!iterator.hasNext()) throw IllegalStateException("Malformed changelog: expected version name on line 2")
                 yield("${iterator.next()}:\n")
                 if (!iterator.hasNext() || !iterator.next()
                         .startsWith(SEPARATOR)
-                ) throw IllegalStateException("Malformed changelog: expected separator \"$SEPARATOR\" on line 3")
+                ) throw IllegalStateException("Malformed changelog: expected separator \"${SEPARATOR}\" on line 3")
                 if (!iterator.hasNext()) throw IllegalStateException("Malformed changelog: expected description starting at line 4")
                 yieldAll(iterator)
             }.takeWhile { line ->
                 !line.startsWith(SEPARATOR)
             }.joinToString("\n|")
         }
+
+        """
+        |$changelog
+        """.trimMargin()
     }
+
+    override fun toString(): String {
+        return text
+    }
+
+    override fun call(): CharSequence = this.text
 }
