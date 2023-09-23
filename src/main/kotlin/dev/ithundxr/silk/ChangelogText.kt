@@ -1,5 +1,6 @@
 package dev.ithundxr.silk
 
+import org.gradle.api.Project
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.util.concurrent.Callable
@@ -75,9 +76,11 @@ class ChangelogText(project: SilkProject): Callable<CharSequence> {
         return text
     }
 
-    fun asString(): String {
-        return text
-    }
-
     override fun call(): CharSequence = this.text
+}
+
+fun Project.getChangelogText(): CharSequence {
+    val plugin = project.extensions.getByType(SilkProject::class.java)
+    val changelogText = ChangelogText(plugin)
+    return changelogText.call()
 }
