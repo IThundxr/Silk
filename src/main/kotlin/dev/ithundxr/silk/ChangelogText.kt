@@ -75,5 +75,9 @@ class ChangelogText(project: SilkProject): Callable<CharSequence> {
         return text
     }
 
+    fun asString(): String {
+        return text
+    }
+
     override fun call(): CharSequence = this.text
 }
