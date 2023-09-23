@@ -82,5 +82,5 @@ class ChangelogText(project: SilkProject): Callable<CharSequence> {
 fun Project.getChangelogText(): CharSequence {
     val plugin = project.extensions.getByType(SilkProject::class.java)
     val changelogText = ChangelogText(plugin)
-    return changelogText.call()
+    return changelogText.toString()
 }
