@@ -75,7 +75,7 @@ class ChangelogText(project: SilkProject) {
             }.takeWhile { line ->
                 !line.startsWith(SEPARATOR)
             }.joinToString("\n|")
-        }
+        }.trimMargin()
 
         """
         |$changelog
